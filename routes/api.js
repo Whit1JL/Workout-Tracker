@@ -5,6 +5,22 @@ const Exercise = require("../models/Exercise");
 router.get("/api")
 
 // route to get last workout with total duration
+router.get("/api/workouts", (req, res) => {
+    Exercise.aggregate([
+        {
+            $addFields: {
+                totalDuration: { $sum: `$exercises.duration`}
+            }
+        }
+    ])
+    .sort({ day: -1}).limit(1)
+    .then(exerciseDB => {
+        res.json(exerciseDB);
+    }).catch(err => {
+        console.log(err);
+    })
+})
+
 // create exercise
 router.post("/api/workouts", (req, res) => {
     Exercise.create(req.body)
