@@ -8,6 +8,11 @@ router.get("/api")
 // create exercise
 router.post("/api/workouts", (req, res) => {
     Exercise.create(req.body)
+    .then((exerciseDB) => {
+        res.json(exerciseDB);
+    }).catch((err) => {
+        console.log(err)
+    })
 });
 
 // update workout by id
