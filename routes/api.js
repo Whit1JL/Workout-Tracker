@@ -6,6 +6,9 @@ router.get("/api")
 
 // route to get last workout with total duration
 // create exercise
+router.post("/api/workouts", (req, res) => {
+    Exercise.create(req.body)
+});
 
 // update workout by id
 
