@@ -11,6 +11,14 @@ router.post("/api/workouts", (req, res) => {
 });
 
 // update workout by id
+router.put("/api/workouts/:id", (req, res) => {
+    Exercise.findByIdAndUpdate(req.params.id, {$push: { exercise: req.body}}, { new: true })
+    .then((exerciseDB) => {
+        res.json(exerciseDB);
+    }).catch((err) => {
+        console.log(err)
+    })
+});
 
 
 // create read update and delete workouts
