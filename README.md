@@ -1,12 +1,12 @@
 # Workout-Tracker
 
-# Description 
 
-This web application focus on tracking workout progress by recording multiple workouts, as well as providing the total distance and weights of workouts over a week.
 
 # Table of Contents
 
-[User-Story](#User Story)
+# Description 
+
+This web application focus on tracking workout progress by recording multiple workouts, as well as providing the total distance and weights of workouts over a week.
 
 ## User Story
 
