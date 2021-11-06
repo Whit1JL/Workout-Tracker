@@ -3,17 +3,18 @@ const Exercise = require("../models/Exercise");
 
 // create exercise
 router.post("/api/workouts", (req, res) => {
-    Exercise.create(req.body)
+    Exercise.create({})
         .then((exerciseDB) => {
             res.json(exerciseDB);
-        }).catch((err) => {
-            console.log(err)
         })
+        .catch((err) => {
+            res.json(err);
+        });
 });
 
 // create route to get dashboard for 7 days 
 router.get("/api/workouts/range", (req, res) => {
-    Exercise.create([
+    Exercise.aggregate([
         {
             $addFields: {
                 totalDuration: { $sum: `$exercises.duration` },
@@ -21,40 +22,50 @@ router.get("/api/workouts/range", (req, res) => {
             }
         }
     ])
-    .sort({ day: -1 }).limit(1)
-    .then(exerciseDB => {
-        res.json(exerciseDB);
-    }).catch(err => {
-        console.log(err);
-    })
+        .sort({ day: -1 })
+        .limit(7)
+        .then(exerciseDB => {
+            res.json(exerciseDB);
+        })
+        .catch(err => {
+            res.json(err);
+        });
 });
 
-// route to get last workout with total duration
+
 router.get("/api/workouts", (req, res) => {
     Exercise.aggregate([
         {
             $addFields: {
-                totalDuration: { $sum: `$exercises.duration` }
-            }
-        }
+                totalDuration: { 
+                    $sum: '$exercises.duration',
+                },
+            },
+        },
     ])
-        .sort({ day: -1 }).limit(1)
-        .then(exerciseDB => {
-            res.json(exerciseDB);
-        }).catch(err => {
-            console.log(err);
-        })
-})
+    .then((exerciseDB) => {
+        res.json(exerciseDB);
+    })
+    .catch((err) => {
+        res.json(err);
+    });
+});
 
 
 // update workout by id
-router.put("/api/workouts/:id", ({body, params}, res) => {
-    Exercise.findByIdAndUpdate(req.params.id, { $push: { exercise: req.body } }, { new: true })
+router.put("/api/workouts/:id", ({ body, params }, res) => {
+    Exercise.findByIdAndUpdate(
+        params.id,
+        { $push: { exercises: body } },
+
+        { new: true, runValidators: true }
+        )
         .then((exerciseDB) => {
             res.json(exerciseDB);
-        }).catch((err) => {
-            console.log(err)
         })
+        .catch((err) => {
+            res.json(err);
+        });
 });
 
 
