@@ -24,6 +24,7 @@ As a user, I want to be able to view create and track daily workouts. I want to 
 ## Installation
 
 Step 1: npm i 
+
 Step 2: node server.js
 
 ## Usage 
@@ -49,6 +50,7 @@ It is an open project and everyone can contribute. Please email requesting to be
 To run test, install:
 
  npm i 
+ 
  node server.js
 
 ## Questions
