@@ -68,7 +68,10 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
         });
 });
 
-
-// create read update and delete workouts
+// delete workouts
+router.delete('/api/exercise', ({ body }), res) => {
+    
+}
+}
 
 module.exports = router;
