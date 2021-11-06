@@ -12,13 +12,12 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { 
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+});
 
-// placing routes in 
-
-// app.get("/", (req, res) => {
-//     res.send("hi");
-// });
 
 app.use(require("./routes/view.js"));
 app.use(require("./routes/api.js"));
