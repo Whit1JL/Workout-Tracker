@@ -69,9 +69,14 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
 });
 
 // delete workouts
-router.delete('/api/exercise', ({ body }), res) => {
-    
-}
-}
+router.delete('/api/exercise', ({ body }, res) => {
+    Exercise.findByIdAndDelete(body.id)
+    .then(() => {
+        res.json(true);
+    })
+    .catch((err) => {
+        res.json(err);
+    });
+});
 
 module.exports = router;
